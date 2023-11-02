@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3001;
 const cheerio = require("cheerio");
 const cors = require("cors");
-const hostname="0.0.0.0";
+
 
 app.use(express.json());
 app.use(cors());
@@ -51,6 +51,6 @@ app.get("/get-repositories", async (req, res) => {
   }
 });
 
-app.listen(PORT,hostname, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
