@@ -9,7 +9,6 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-
 app.get("/get-repositories", async (req, res) => {
   try {
     const response1 = await axios.get(
@@ -17,6 +16,9 @@ app.get("/get-repositories", async (req, res) => {
     );
     const response2 = await axios.get(
       "https://github.com/MunteanuAndrei237/chess_bot/blob/main/main.cpp"
+    );
+    const response3 = await axios.get(
+      "https://github.com/MunteanuAndrei237/graphMaker/blob/main/src/StartPage.js"
     );
     var responsearr = [];
 
@@ -43,6 +45,18 @@ app.get("/get-repositories", async (req, res) => {
     const parsedData2 = JSON.parse(jsonData2);
 
     responsearr[1] = parsedData2["payload"]["blob"]["rawLines"];
+
+    const html3 = response3.data;
+
+    const $3 = cheerio.load(html3);
+
+    const scriptTag3 = $3('script[data-target="react-app.embeddedData"]');
+
+    const jsonData3 = scriptTag3.html();
+
+    const parsedData3 = JSON.parse(jsonData3);
+
+    responsearr[2] = parsedData3["payload"]["blob"]["rawLines"];
 
     res.json(responsearr);
   } catch (error) {
